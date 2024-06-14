@@ -1,73 +1,83 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# API Documentation
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Create Api for entity Setting.
 
-## Description
+## Endpoints
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### GET /settings
 
-## Installation
+Get All Settings
 
-```bash
-$ npm install
+**Example Request (Get all settings):**
+
+http://localhost:3000/settings?searchedColumn=name&keyword=e&orderedColumn=value&page=1&limit=2
+
+**Parameters:**
+
+- `searchedColumn`: The name of the column to search by.
+- `keyword`: The keyword to search for in the specified column.
+- `orderedColumn`: The name of the column to order by.
+- `order`: The order direction (ASC or DESC) for the sorted column. Defaults to ASC.
+- `page`: The current page number. Defaults to 1.
+- `limit`:The number of settings to return per page. Defaults to 1.
+
+**Response:**
+
+```json
+{
+  "data": [
+    {
+      "name": "name",
+      "value": "demo",
+      "id": 1,
+      "isDisabled": false,
+      "createdAt": "2024-06-14T08:59:36.076Z",
+      "updatedAt": "2024-06-14T08:59:36.076Z"
+    },
+    {
+      "name": "hello",
+      "value": "world",
+      "id": 2,
+      "isDisabled": false,
+      "createdAt": "2024-06-14T08:59:53.190Z",
+      "updatedAt": "2024-06-14T08:59:53.190Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 2,
+    "count": 3,
+    "totalPages": 2,
+    "links": {
+      "prev": null,
+      "next": "http://localhost:3000/settings?searchedColumn=name&keyword=e&orderedColumn=&order=desc&page=2&limit=2"
+    }
+  }
+}
 ```
 
-## Running the app
+---
 
-```bash
-# development
-$ npm run start
+### POST /settings
 
-# watch mode
-$ npm run start:dev
+Create a new setting key value.
 
-# production mode
-$ npm run start:prod
+**Request Body:**
+
+- `name`: The name of the setting.
+- `value`: The value of the setting.
+
+**Response:**
+
+```json
+{
+  "name": "demo1",
+  "value": "api1",
+  "id": 3,
+  "isDisabled": false,
+  "createdAt": "2024-06-14T09:01:07.550Z",
+  "updatedAt": "2024-06-14T09:01:07.550Z"
+}
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
