@@ -62,14 +62,16 @@ export class SettingsService {
       }
     }
 
-    if (searchedColumn && Object.getOwnPropertyNames(findOtionsWhere).length) {
+    if (searchedColumn && !Object.getOwnPropertyNames(findOtionsWhere).length) {
       throw new BadRequestException(
         `Can not search by column '${searchedColumn}'`,
       );
     }
 
-    if (orderedColumn && Object.getOwnPropertyNames(findOptionsOrder).length) {
-      console.log(Object.getOwnPropertyNames(findOptionsOrder));
+    if (
+      orderedColumn &&
+      Object.getOwnPropertyNames(findOptionsOrder)[0] !== orderedColumn
+    ) {
       throw new BadRequestException(
         `Can not order by column '${orderedColumn}'`,
       );
